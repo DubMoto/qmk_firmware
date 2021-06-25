@@ -1,5 +1,5 @@
 /*
-Copyright 2020 gtips
+Copyright 2021 cyril279
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -20,11 +20,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID 0x7807
-#define PRODUCT_ID 0xDCCB
-#define DEVICE_VER 0x0001
-#define MANUFACTURER gtips
-#define PRODUCT reviung41
+#define VENDOR_ID       0xFEED
+#define PRODUCT_ID      0x5F10
+#define DEVICE_VER      0x0001
+#define MANUFACTURER    cyril279
+#define PRODUCT         rev41lp
+#define DESCRIPTION     A 41-key keyboard
 
 /* key matrix size */
 #define MATRIX_ROWS 7
@@ -39,11 +40,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * DIODE_DIRECTION: COL2ROW = COL = Anode (+), ROW = Cathode (-, marked on diode)
  *                  ROW2COL = ROW = Anode (+), COL = Cathode (-, marked on diode)
  *
- */
-#define MATRIX_ROW_PINS \
-    { F4, F5, F6, F7, B1, B3, B2 }
-#define MATRIX_COL_PINS \
-    { D4, C6, D7, E6, B4, B5 }
+*/
+#define MATRIX_ROW_PINS { F4, B2, F5, B3, F6, B1, F7 }
+#define MATRIX_COL_PINS { D4, C6, D7, E6, B4, B5 }
 #define UNUSED_PINS
 
 /* COL2ROW, ROW2COL*/
@@ -52,22 +51,24 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /*
  * Split Keyboard specific options, make sure you have 'SPLIT_KEYBOARD = yes' in your rules.mk, and define SOFT_SERIAL_PIN.
  */
-#define SOFT_SERIAL_PIN D0  // or D1, D2, D3, E6
+#define SOFT_SERIAL_PIN D0 // or D1, D2, D3, E6
 
-// #define BACKLIGHT_PIN B7
+#define BACKLIGHT_PIN B6 
+#define BACKLIGHT_ON_STATE 1
 // #define BACKLIGHT_BREATHING
-// #define BACKLIGHT_LEVELS 3
+#define BACKLIGHT_LEVELS 7
+#define BACKLIGHT_LIMIT_VAL 150
 
-#define RGB_DI_PIN D3
-#ifdef RGB_DI_PIN
-  #define RGBLED_NUM 11
-  #define RGBLIGHT_HUE_STEP 16
-  #define RGBLIGHT_SAT_STEP 16
-  #define RGBLIGHT_VAL_STEP 16
-  #define RGBLIGHT_LIMIT_VAL 255 /* The maximum brightness level */
-  #define RGBLIGHT_SLEEP  /* If defined, the RGB lighting will be switched off when the host goes to sleep */
+// #define RGB_DI_PIN E2
+// #ifdef RGB_DI_PIN
+//   #define RGBLED_NUM 16
+//   #define RGBLIGHT_HUE_STEP 8
+//   #define RGBLIGHT_SAT_STEP 8
+//   #define RGBLIGHT_VAL_STEP 8
+//   #define RGBLIGHT_LIMIT_VAL 255 /* The maximum brightness level */
+//   #define RGBLIGHT_SLEEP  /* If defined, the RGB lighting will be switched off when the host goes to sleep */
 // /*== all animations enable ==*/
-  #define RGBLIGHT_ANIMATIONS
+//   #define RGBLIGHT_ANIMATIONS
 // /*== or choose animations ==*/
 //   #define RGBLIGHT_EFFECT_BREATHING
 //   #define RGBLIGHT_EFFECT_RAINBOW_MOOD
@@ -84,13 +85,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //   /*==== use exp() and sin() ====*/
 //   #define RGBLIGHT_EFFECT_BREATHE_CENTER 1.85  // 1 to 2.7
 //   #define RGBLIGHT_EFFECT_BREATHE_MAX    255   // 0 to 255
-#endif
+// #endif
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
 #define DEBOUNCE 5
 
 /* define if matrix has ghost (lacks anti-ghosting diodes) */
 //#define MATRIX_HAS_GHOST
+
+/* number of backlight levels */
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
@@ -137,7 +140,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* key combination for magic key command */
 /* defined by default; to change, uncomment and set to the combination you want */
-// #define IS_COMMAND() (get_mods() == MOD_MASK_SHIFT)
+// #define IS_COMMAND() (get_mods() == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT)))
 
 /* control how magic key switches layers */
 //#define MAGIC_KEY_SWITCH_LAYER_WITH_FKEYS  true
@@ -198,6 +201,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * MIDI options
  */
 
+/* Prevent use of disabled MIDI features in the keymap */
+//#define MIDI_ENABLE_STRICT 1
+
 /* enable basic MIDI features:
    - MIDI notes can be sent when in Music mode is on
 */
@@ -214,14 +220,34 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* override number of MIDI tone keycodes (each octave adds 12 keycodes and allocates 12 bytes) */
 //#define MIDI_TONE_KEYCODE_OCTAVES 1
 
+/*
+ * HD44780 LCD Display Configuration
+ */
+/*
+#define LCD_LINES           2     //< number of visible lines of the display
+#define LCD_DISP_LENGTH    16     //< visibles characters per line of the display
+
+#define LCD_IO_MODE      1            //< 0: memory mapped mode, 1: IO port mode
+
+#if LCD_IO_MODE
+#define LCD_PORT         PORTB        //< port for the LCD lines
+#define LCD_DATA0_PORT   LCD_PORT     //< port for 4bit data bit 0
+#define LCD_DATA1_PORT   LCD_PORT     //< port for 4bit data bit 1
+#define LCD_DATA2_PORT   LCD_PORT     //< port for 4bit data bit 2
+#define LCD_DATA3_PORT   LCD_PORT     //< port for 4bit data bit 3
+#define LCD_DATA0_PIN    4            //< pin for 4bit data bit 0
+#define LCD_DATA1_PIN    5            //< pin for 4bit data bit 1
+#define LCD_DATA2_PIN    6            //< pin for 4bit data bit 2
+#define LCD_DATA3_PIN    7            //< pin for 4bit data bit 3
+#define LCD_RS_PORT      LCD_PORT     //< port for RS line
+#define LCD_RS_PIN       3            //< pin  for RS line
+#define LCD_RW_PORT      LCD_PORT     //< port for RW line
+#define LCD_RW_PIN       2            //< pin  for RW line
+#define LCD_E_PORT       LCD_PORT     //< port for Enable line
+#define LCD_E_PIN        1            //< pin  for Enable line
+#endif
+*/
+
 /* Bootmagic Lite key configuration */
-
-// set k35 [Backspace] as reset key
-#define BOOTMAGIC_LITE_ROW 3
-#define BOOTMAGIC_LITE_COLUMN 5
-
-// set k10 [esc] as dfu-escape key
-#define QMK_ESC_INPUT F5 // usually ROW
-#define QMK_ESC_OUTPUT D4 // usually COL
-
-#define QMK_LED B0
+// #define BOOTMAGIC_LITE_ROW 0
+// #define BOOTMAGIC_LITE_COLUMN 0
