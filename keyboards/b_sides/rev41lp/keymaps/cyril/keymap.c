@@ -33,25 +33,32 @@ enum layer_names {
 
 #define LGUI_A LGUI_T(KC_A)
 #define LALT_S LALT_T(KC_S)
+#define LALT_X LALT_T(KC_X)
 #define LSFT_D LSFT_T(KC_D)
+#define LSFT_C LSFT_T(KC_C)
 #define LCTL_F LCTL_T(KC_F)
+#define LCTL_V LCTL_T(KC_V)
+#define LCTL_Z RCTL_T(KC_Z)
 #define RCTL_J RCTL_T(KC_J)
+#define RCTL_M RCTL_T(KC_M)
 #define RSFT_K RSFT_T(KC_K)
+#define RSFT_CM RSFT_T(KC_COMM)
 #define RALT_L LALT_T(KC_L)
+#define RALT_DT LALT_T(KC_DOT)
 #define RGUI_SCLN RGUI_T(KC_SCLN)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_BASE] = LAYOUT_rev41lp(
     KC_TAB,     KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,             KC_Y,    KC_U,    KC_I,    KC_O,    KC_P, KC_BSPC,
-    KC_ESC,     KC_A,  LALT_S,  LSFT_D,  LCTL_F,    KC_G,             KC_H,  RCTL_J,  RSFT_K,  RALT_L, KC_SCLN, KC_QUOT,
-    KC_LCTL,    KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,             KC_N,    KC_M, KC_COMM,  KC_DOT, KC_SLSH,  KC_ENT,
+    KC_ESC,     KC_A,    KC_S,    KC_D,    KC_F,    KC_G,             KC_H,    KC_J,    KC_K,    KC_L, KC_SCLN, KC_QUOT,
+    KC_LCTL,  LCTL_Z,  LALT_X,  LSFT_C,  LCTL_V,    KC_B,             KC_N,  RCTL_M, RSFT_CM, RALT_DT, KC_SLSH,  KC_ENT,
                                         KC_LGUI,   LOWER, SPC_NAV,   RAISE,   FUNCT
   ),
 
   [_LOWER] = LAYOUT_rev41lp(
     KC_GRV,  KC_EXLM,   KC_AT, KC_HASH,  KC_DLR, KC_PERC,          KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN,  KC_DEL,
     _______, _______, _______, _______, _______, _______,          KC_TILD, KC_UNDS, KC_PLUS, KC_LCBR, KC_RCBR, KC_PIPE,
-    _______, _______, KC_LGUI, KC_LALT, KC_CAPS, _______,          KC_PSCR, _______, _______, _______, _______, _______,
+    _______, _______, KC_LGUI, _______, KC_CAPS, _______,          KC_PSCR, _______, _______, _______, _______, _______,
                                         _______, _______, _______, _______, _______
   ),
 
