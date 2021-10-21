@@ -142,5 +142,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_FUNCTION
 
 /* Bootmagic Lite key configuration */
-// #define BOOTMAGIC_LITE_ROW 0
-// #define BOOTMAGIC_LITE_COLUMN 0
+
+// set k35 [Backspace] as reset key
+#define BOOTMAGIC_LITE_ROW 3
+#define BOOTMAGIC_LITE_COLUMN 5
+
+// set k10 [esc] as dfu-escape key
+#define QMK_ESC_INPUT F5 // usually ROW
+#define QMK_ESC_OUTPUT D4 // usually COL
+
+#define QMK_LED B0
